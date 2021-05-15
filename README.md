@@ -20,7 +20,7 @@ This is useful for unit tests and integration tests.
 import { invokeHandlerForTesting } from 'simple-lambda-testing-methods';
 import { handler } from `src/handlers/sendUserNotification.ts`;
 
-const response = await invokeHandler({
+const response = await invokeHandlerForTesting({
   handler,
   event: { important: 'data' },
 });
