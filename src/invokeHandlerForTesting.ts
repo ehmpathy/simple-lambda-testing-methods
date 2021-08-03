@@ -10,7 +10,7 @@ const stripInvocationEvent = (event: any) => JSON.parse(JSON.stringify(event));
 /**
  * to make it easy to invoke your handlers, swapping callback syntax to promise syntax as needed
  */
-export const invokeHandlerForTesting = async <E, R extends any>({
+export const invokeHandlerForTesting = async <E, R = any>({
   event,
   context = {},
   handler,
