@@ -1,5 +1,6 @@
 import findRoot from 'find-root';
 import fs from 'fs';
+import { LambdaInvocationError } from 'simple-lambda-client';
 import YAML from 'yaml';
 
 import { invokeHandlerForTesting } from '../invokeHandlerForTesting';
@@ -69,6 +70,27 @@ export const invokeLambdaForTestingLocally = async ({
   const handlerMethod = handlerFile[handlerExport];
   if (!handlerMethod) throw new Error(`no function was exported from file at handler.path \`${handlerPath}\``);
 
-  // invoke the function
-  return invokeHandlerForTesting({ event, handler: handlerMethod });
+  // invoke the function. make the response look like what aws-lambda would return for the response (e.g., error => error shape response)
+  const payload: any = await (async () => {
+    try {
+      return await invokeHandlerForTesting({ event, handler: handlerMethod });
+    } catch (error) {
+      return {
+        errorType: error.constructor.name,
+        errorMessage: error.message,
+      };
+    }
+  })();
+
+  // throw a LambdaInvocationError if the result had an error shape to match the response of the live invocation (https://github.com/uladkasach/simple-lambda-client/blob/92f4cff035000de4bd71034c2a99e0d70ab45859/src/executeLambdaInvocation.ts#L38)
+  const isAnErrorPayload =
+    !!payload && // if the response exists and is truthy, then it may be an error object
+    (false || // check if any of the following properties exist in the payload (since some responses may exclude one or the other)
+      payload.errorMessage ||
+      payload.errorType ||
+      payload.stackTrace);
+  if (isAnErrorPayload) throw new LambdaInvocationError({ response: payload, lambda: `${serviceName}-${stage}-${functionName}`, event });
+
+  // otherwise, return the result
+  return payload;
 };

@@ -1,4 +1,5 @@
 import findRoot from 'find-root';
+import { LambdaInvocationError } from 'simple-lambda-client';
 
 import { invokeLambdaForTestingLocally } from './invokeLambdaForTestingLocally';
 
@@ -44,5 +45,37 @@ describe('invokeLambdaForTestingLocally', () => {
       event: { important: true },
     });
     expect(result).toEqual('__EXAMPLE_RESPONSE__');
+  });
+  it('should throw a LambdaInvocationError if the function threw an error while executing, to match result of live invocation', async () => {
+    // aws lambda returns an error shape when the function throws an error. this error shape is detected by simple-lambda-client in live invocations and an error is thrown from it. so make sure we do that for local invocations too
+    process.env.SERVERLESS_STAGE = 'prod';
+    try {
+      await invokeLambdaForTestingLocally({
+        service: 'svc-example',
+        function: 'doCoolThing',
+        stage: 'prod',
+        event: { throwError: true },
+      });
+      throw new Error('should not reach here');
+    } catch (error) {
+      expect(error).toBeInstanceOf(LambdaInvocationError);
+      expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error!"`);
+    }
+  });
+  it('should throw a LambdaInvocationError if the function returned something that had an error shape, to match result of live invocation', async () => {
+    // when the function itself returns an error shape (e.g., BadRequestError -> errorShape), this error shape is detected by simple-lambda-client in live invocations and an error is thrown from it. so make sure we do that for local invocations too
+    process.env.SERVERLESS_STAGE = 'prod';
+    try {
+      await invokeLambdaForTestingLocally({
+        service: 'svc-example',
+        function: 'doCoolThing',
+        stage: 'prod',
+        event: { returnErrorShape: true },
+      });
+      throw new Error('should not reach here');
+    } catch (error) {
+      expect(error).toBeInstanceOf(LambdaInvocationError);
+      expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error shape!"`);
+    }
   });
 });
