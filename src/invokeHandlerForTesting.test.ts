@@ -39,4 +39,29 @@ describe('invokeHandlerForTesting', () => {
       }
     });
   });
+  describe('deployed lambda parity', () => {
+    it('should strip any non-serializable data from the event payload, since only serializable data can be passed through the wire and reach deployed lambdas', async () => {
+      class CoolThing {
+        public cool: boolean;
+        constructor() {
+          this.cool = true;
+        }
+      }
+      const theHandler = jest.fn(async ({ thing }: { thing: { cool: boolean } }) => {
+        if (thing instanceof CoolThing) throw new Error('information about instantiation can not go over the wire. this should not be reached');
+        return { cool: thing.cool, constructor: thing.constructor.name };
+      });
+      const result = await invokeHandlerForTesting({ event: { thing: new CoolThing() }, handler: theHandler }); // this should not throw an error about the instance
+      expect(result.cool).toEqual(true);
+      expect(result.constructor).toEqual('Object');
+      expect(result.constructor).not.toEqual('CoolThing');
+    });
+    it('should serialize any non-primitive data in the response payload, since only serializable data can be passed through the wire and return from deployed lambdas', async () => {
+      const theHandler = jest.fn(async () => {
+        return { now: new Date() }; // a Date instance can not be sent directly over the wire, the lambda will serialize it
+      });
+      const result = await invokeHandlerForTesting({ event: {}, handler: theHandler }); // this should not throw an error about the instance
+      expect(typeof result.now).toEqual('string');
+    });
+  });
 });
