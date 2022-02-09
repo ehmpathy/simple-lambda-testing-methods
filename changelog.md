@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.2.1...v0.3.0) (2022-02-09)
+
+
+### Features
+
+* **events:** expose methods to create example lambda invocation events ([00293b8](https://www.github.com/uladkasach/simple-lambda-testing-methods/commit/00293b867507e9dc4088fc03827294aa5b0cd460))
+
 ### [0.2.1](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.2.0...v0.2.1) (2022-02-05)
 
 
