@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createExampleSNSEvent should create an accurate looking sns event 1`] = `
+Object {
+  "Records": Array [
+    Object {
+      "EventSource": undefined,
+      "EventSubscriptionArn": undefined,
+      "EventVersion": undefined,
+      "Sns": Object {
+        "Message": "hello",
+        "MessageAttributes": undefined,
+        "MessageId": undefined,
+        "Signature": undefined,
+        "SignatureVersion": undefined,
+        "SigningCertUrl": undefined,
+        "Subject": undefined,
+        "Timestamp": undefined,
+        "TopicArn": undefined,
+        "Type": undefined,
+        "UnsubscribeUrl": undefined,
+      },
+    },
+    Object {
+      "EventSource": undefined,
+      "EventSubscriptionArn": undefined,
+      "EventVersion": undefined,
+      "Sns": Object {
+        "Message": "there",
+        "MessageAttributes": undefined,
+        "MessageId": undefined,
+        "Signature": undefined,
+        "SignatureVersion": undefined,
+        "SigningCertUrl": undefined,
+        "Subject": undefined,
+        "Timestamp": undefined,
+        "TopicArn": undefined,
+        "Type": undefined,
+        "UnsubscribeUrl": undefined,
+      },
+    },
+  ],
+}
+`;

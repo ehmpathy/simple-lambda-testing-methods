@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createExampleSQSEvent should create an accurate looking sns event 1`] = `
+Object {
+  "Records": Array [
+    Object {
+      "attributes": undefined,
+      "awsRegion": undefined,
+      "body": "hello",
+      "eventSource": undefined,
+      "eventSourceARN": undefined,
+      "md5OfBody": undefined,
+      "messageAttributes": undefined,
+      "messageId": undefined,
+      "receiptHandle": undefined,
+    },
+    Object {
+      "attributes": undefined,
+      "awsRegion": undefined,
+      "body": "there",
+      "eventSource": undefined,
+      "eventSourceARN": undefined,
+      "md5OfBody": undefined,
+      "messageAttributes": undefined,
+      "messageId": undefined,
+      "receiptHandle": undefined,
+    },
+  ],
+}
+`;

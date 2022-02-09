@@ -3,7 +3,7 @@ import fs from 'fs';
 import { LambdaInvocationError } from 'simple-lambda-client';
 import YAML from 'yaml';
 
-import { invokeHandlerForTesting } from '../invokeHandlerForTesting';
+import { invokeHandlerForTesting } from '../invokeHandlerForTesting/invokeHandlerForTesting';
 
 /**
  * open the serverless.yml, lookup the path to the fn, import it, and call it

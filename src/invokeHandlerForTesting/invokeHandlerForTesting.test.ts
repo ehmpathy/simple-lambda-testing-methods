@@ -2,7 +2,7 @@ import { invokeHandlerForTesting } from './invokeHandlerForTesting';
 
 describe('invokeHandlerForTesting', () => {
   describe('callback handlers', () => {
-    it.only('calls callback style handler and gets response correctly', async () => {
+    it('calls callback style handler and gets response correctly', async () => {
       const theHandler = jest.fn(async (event, context, callback) => callback(undefined, '__RESULT__'));
       const result = await invokeHandlerForTesting({ event: { important: true }, handler: theHandler });
       expect(theHandler).toHaveBeenCalledTimes(1);
