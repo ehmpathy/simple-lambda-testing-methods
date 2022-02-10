@@ -1,5 +1,12 @@
 # Changelog
 
+### [0.3.1](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.3.0...v0.3.1) (2022-02-10)
+
+
+### Bug Fixes
+
+* **ci:** bump node version in ci so fromEntries doesn't break build ([8d40bf6](https://www.github.com/uladkasach/simple-lambda-testing-methods/commit/8d40bf68b60692cce991bcce7e6de21cd2c36e7d))
+
 ## [0.3.0](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.2.1...v0.3.0) (2022-02-09)
 
 
