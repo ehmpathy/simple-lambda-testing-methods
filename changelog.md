@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.3.1...v0.4.0) (2022-02-24)
+
+
+### Features
+
+* **events:** expose method to create example kinesis event ([a656110](https://www.github.com/uladkasach/simple-lambda-testing-methods/commit/a6561106d6b95f456096ffbdee97c51775586894))
+
 ### [0.3.1](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.3.0...v0.3.1) (2022-02-10)
 
 
