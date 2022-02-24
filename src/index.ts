@@ -4,3 +4,4 @@ export { invokeLambdaForTesting } from './invokeLambdaForTesting/invokeLambdaFor
 export { createExampleAPIGatewayEvent } from './createExampleEvents/createExampleAPIGatewayEvent';
 export { createExampleSNSEvent } from './createExampleEvents/createExampleSNSEvent';
 export { createExampleSQSEvent } from './createExampleEvents/createExampleSQSEvent';
+export { createExampleKinesisEvent } from './createExampleEvents/createExampleKinesisEvent';
