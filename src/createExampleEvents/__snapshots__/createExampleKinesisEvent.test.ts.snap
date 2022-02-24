@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createExampleKinesisEvent should create an accurate looking sns event 1`] = `
+Object {
+  "Records": Array [
+    Object {
+      "awsRegion": undefined,
+      "eventID": undefined,
+      "eventName": undefined,
+      "eventSource": undefined,
+      "eventSourceARN": undefined,
+      "eventVersion": undefined,
+      "invokeIdentityArn": undefined,
+      "kinesis": Object {
+        "approximateArrivalTimestamp": undefined,
+        "data": "aGVsbG8=",
+        "kinesisSchemaVersion": undefined,
+        "partitionKey": undefined,
+        "sequenceNumber": undefined,
+      },
+    },
+    Object {
+      "awsRegion": undefined,
+      "eventID": undefined,
+      "eventName": undefined,
+      "eventSource": undefined,
+      "eventSourceARN": undefined,
+      "eventVersion": undefined,
+      "invokeIdentityArn": undefined,
+      "kinesis": Object {
+        "approximateArrivalTimestamp": undefined,
+        "data": "dGhlcmU=",
+        "kinesisSchemaVersion": undefined,
+        "partitionKey": undefined,
+        "sequenceNumber": undefined,
+      },
+    },
+  ],
+}
+`;
