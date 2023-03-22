@@ -18,26 +18,13 @@ describe('invokeLambdaForTestingLocally', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error.message).toContain(
         'serverless config service name does not match; serverless.yml#service=`svc-example`, expected=`svc-example-different`',
       );
     }
   });
-  it('should complain if we stage !== process.env.SERVERLESS_STAGE, since we assume thats how user defines stage for local invocations', async () => {
-    try {
-      await invokeLambdaForTestingLocally({
-        service: 'svc-example',
-        function: 'doCoolThing',
-        stage: 'prod',
-        event: { important: true },
-      });
-      throw new Error('should not reach here');
-    } catch (error) {
-      expect(error.message).toContain('env stage does not match; process.env.SERVERLESS_STAGE=`undefined`, expected=`prod`');
-    }
-  });
   it('should be able to correctly invoke the desired function, by finding its path through serverless.yml', async () => {
-    process.env.SERVERLESS_STAGE = 'prod';
     const result = await invokeLambdaForTestingLocally({
       service: 'svc-example',
       function: 'doCoolThing',
@@ -48,7 +35,6 @@ describe('invokeLambdaForTestingLocally', () => {
   });
   it('should throw a LambdaInvocationError if the function threw an error while executing, to match result of live invocation', async () => {
     // aws lambda returns an error shape when the function throws an error. this error shape is detected by simple-lambda-client in live invocations and an error is thrown from it. so make sure we do that for local invocations too
-    process.env.SERVERLESS_STAGE = 'prod';
     try {
       await invokeLambdaForTestingLocally({
         service: 'svc-example',
@@ -58,13 +44,13 @@ describe('invokeLambdaForTestingLocally', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(LambdaInvocationError);
       expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error!"`);
     }
   });
   it('should throw a LambdaInvocationError if the function returned something that had an error shape, to match result of live invocation', async () => {
     // when the function itself returns an error shape (e.g., BadRequestError -> errorShape), this error shape is detected by simple-lambda-client in live invocations and an error is thrown from it. so make sure we do that for local invocations too
-    process.env.SERVERLESS_STAGE = 'prod';
     try {
       await invokeLambdaForTestingLocally({
         service: 'svc-example',
@@ -74,6 +60,7 @@ describe('invokeLambdaForTestingLocally', () => {
       });
       throw new Error('should not reach here');
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(LambdaInvocationError);
       expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error shape!"`);
     }

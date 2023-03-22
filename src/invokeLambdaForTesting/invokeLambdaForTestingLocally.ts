@@ -35,10 +35,6 @@ export const invokeLambdaForTestingLocally = async ({
       `serverless config service name does not match; serverless.yml#service=\`${serverlessConfig.service}\`, expected=\`${serviceName}\``,
     );
 
-  // sanity check that the requested stage is the stage that is currently set (as defined by `SERVERLESS_STAGE` env var standard)
-  const envStage = process.env.SERVERLESS_STAGE ?? (process.env.NODE_ENV === stage ? process.env.NODE_ENV : undefined); // fallback to node-env as a backup, for convenience, but only if it was a direct match
-  if (stage !== envStage) throw new Error(`env stage does not match; process.env.SERVERLESS_STAGE=\`${envStage}\`, expected=\`${stage}\``);
-
   // find the function definition
   const functionConfig = serverlessConfig.functions[functionName];
   if (!functionConfig)
@@ -61,6 +57,7 @@ export const invokeLambdaForTestingLocally = async ({
     try {
       return await import(handlerPath);
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       if (error.message.includes('Cannot find module')) throw new Error(`no file was found at handler.path \`${handlerPath}\``); // if we can add context to the error, throw our own error with more context
       throw error; // otherwise, we cant add more context - just throw the orig error
     }
@@ -75,6 +72,7 @@ export const invokeLambdaForTestingLocally = async ({
     try {
       return await invokeHandlerForTesting({ event, handler: handlerMethod });
     } catch (error) {
+      if (!(error instanceof Error)) throw error;
       return {
         errorType: error.constructor.name,
         errorMessage: error.message,
