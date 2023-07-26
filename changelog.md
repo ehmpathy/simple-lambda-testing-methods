@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.5.0](https://github.com/ehmpathy/simple-lambda-testing-methods/compare/v0.4.1...v0.5.0) (2023-07-26)
+
+
+### Features
+
+* **events:** expose method to create exampe s3 event ([c7d3dd6](https://github.com/ehmpathy/simple-lambda-testing-methods/commit/c7d3dd66915797ae66d607c4339128ce1072c4a3))
+
+
+### Bug Fixes
+
+* **assumptions:** remove sanity check of stage vs env variable ([c35dc28](https://github.com/ehmpathy/simple-lambda-testing-methods/commit/c35dc287b5ea5d0028c2080b1d5af55b92133cf4))
+* **practs:** upgrade best practices ([9365aed](https://github.com/ehmpathy/simple-lambda-testing-methods/commit/9365aed9201fc34c247baaeb64fa06fe58da9228))
+
 ### [0.4.1](https://www.github.com/uladkasach/simple-lambda-testing-methods/compare/v0.4.0...v0.4.1) (2022-02-24)
 
 
