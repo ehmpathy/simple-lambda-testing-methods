@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/ehmpathy/simple-lambda-testing-methods/compare/v0.5.0...v0.5.1) (2023-07-26)
+
+
+### Bug Fixes
+
+* **pkg:** export the create example s3 event method ([8f6e35a](https://github.com/ehmpathy/simple-lambda-testing-methods/commit/8f6e35a6692296baf563460833d51dec6ab70e28))
+
 ## [0.5.0](https://github.com/ehmpathy/simple-lambda-testing-methods/compare/v0.4.1...v0.5.0) (2023-07-26)
 
 
