@@ -5,3 +5,4 @@ export { createExampleAPIGatewayEvent } from './createExampleEvents/createExampl
 export { createExampleSNSEvent } from './createExampleEvents/createExampleSNSEvent';
 export { createExampleSQSEvent } from './createExampleEvents/createExampleSQSEvent';
 export { createExampleKinesisEvent } from './createExampleEvents/createExampleKinesisEvent';
+export { createExampleS3Event } from './createExampleEvents/createExampleS3Event';
