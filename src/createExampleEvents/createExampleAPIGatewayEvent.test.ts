@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+
 import { createExampleAPIGatewayEvent } from './createExampleAPIGatewayEvent';
 
 describe('createExampleAPIGatewayEvent', () => {

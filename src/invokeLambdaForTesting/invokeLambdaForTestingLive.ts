@@ -13,4 +13,10 @@ export const invokeLambdaForTestingLive = ({
   function: string;
   stage: string;
   event: any;
-}) => invokeLambdaFunction({ service: serviceName, function: functionName, stage, event });
+}) =>
+  invokeLambdaFunction({
+    service: serviceName,
+    function: functionName,
+    stage,
+    event,
+  });

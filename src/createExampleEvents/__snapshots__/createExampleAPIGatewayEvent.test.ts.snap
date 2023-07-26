@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`createExampleAPIGatewayEvent should create an accurate looking sns event 1`] = `
-Object {
-  "body": "{\\"hello\\":\\"there\\"}",
-  "headers": Object {
+{
+  "body": "{"hello":"there"}",
+  "headers": {
     "Content-Type": "application/json",
   },
   "httpMethod": "POST",
   "isBase64Encoded": false,
-  "multiValueHeaders": Object {
-    "Content-Type": Array [
+  "multiValueHeaders": {
+    "Content-Type": [
       "application/json",
     ],
   },

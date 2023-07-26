@@ -3,18 +3,33 @@ import { invokeHandlerForTesting } from './invokeHandlerForTesting';
 describe('invokeHandlerForTesting', () => {
   describe('callback handlers', () => {
     it('calls callback style handler and gets response correctly', async () => {
-      const theHandler = jest.fn(async (event, context, callback) => callback(undefined, '__RESULT__'));
-      const result = await invokeHandlerForTesting({ event: { important: true }, handler: theHandler });
+      const theHandler = jest.fn(async (event, context, callback) =>
+        callback(undefined, '__RESULT__'),
+      );
+      const result = await invokeHandlerForTesting({
+        event: { important: true },
+        handler: theHandler,
+      });
       expect(theHandler).toHaveBeenCalledTimes(1);
-      expect(theHandler).toHaveBeenCalledWith({ important: true }, expect.any(Object), expect.any(Function));
+      expect(theHandler).toHaveBeenCalledWith(
+        { important: true },
+        expect.any(Object),
+        expect.any(Function),
+      );
       expect(result).toEqual('__RESULT__');
     });
     it('calls callback style handler and gets errors correctly', async () => {
-      const theHandler = jest.fn(async (event, context, callback) => callback(new Error('bad thing')));
+      const theHandler = jest.fn(async (event, context, callback) =>
+        callback(new Error('bad thing')),
+      );
       try {
-        await invokeHandlerForTesting({ event: { important: true }, handler: theHandler });
+        await invokeHandlerForTesting({
+          event: { important: true },
+          handler: theHandler,
+        });
         throw new Error('should not reach here');
       } catch (error) {
+        if (!(error instanceof Error)) throw error;
         expect(error.message).toEqual('bad thing');
       }
     });
@@ -22,9 +37,16 @@ describe('invokeHandlerForTesting', () => {
   describe('async handlers', () => {
     it('calls async style handler and gets response correctly', async () => {
       const theHandler = jest.fn(async () => '__RESULT__');
-      const result = await invokeHandlerForTesting({ event: { important: true }, handler: theHandler });
+      const result = await invokeHandlerForTesting({
+        event: { important: true },
+        handler: theHandler,
+      });
       expect(theHandler).toHaveBeenCalledTimes(1);
-      expect(theHandler).toHaveBeenCalledWith({ important: true }, expect.any(Object), expect.any(Function));
+      expect(theHandler).toHaveBeenCalledWith(
+        { important: true },
+        expect.any(Object),
+        expect.any(Function),
+      );
       expect(result).toEqual('__RESULT__');
     });
     it('calls async style handler and gets errors correctly', async () => {
@@ -32,9 +54,13 @@ describe('invokeHandlerForTesting', () => {
         throw new Error('bad thing');
       });
       try {
-        await invokeHandlerForTesting({ event: { important: true }, handler: theHandler });
+        await invokeHandlerForTesting({
+          event: { important: true },
+          handler: theHandler,
+        });
         throw new Error('should not reach here');
       } catch (error) {
+        if (!(error instanceof Error)) throw error;
         expect(error.message).toEqual('bad thing');
       }
     });
@@ -47,11 +73,19 @@ describe('invokeHandlerForTesting', () => {
           this.cool = true;
         }
       }
-      const theHandler = jest.fn(async ({ thing }: { thing: { cool: boolean } }) => {
-        if (thing instanceof CoolThing) throw new Error('information about instantiation can not go over the wire. this should not be reached');
-        return { cool: thing.cool, constructor: thing.constructor.name };
-      });
-      const result = await invokeHandlerForTesting({ event: { thing: new CoolThing() }, handler: theHandler }); // this should not throw an error about the instance
+      const theHandler = jest.fn(
+        async ({ thing }: { thing: { cool: boolean } }) => {
+          if (thing instanceof CoolThing)
+            throw new Error(
+              'information about instantiation can not go over the wire. this should not be reached',
+            );
+          return { cool: thing.cool, constructor: thing.constructor.name };
+        },
+      );
+      const result = await invokeHandlerForTesting({
+        event: { thing: new CoolThing() },
+        handler: theHandler,
+      }); // this should not throw an error about the instance
       expect(result.cool).toEqual(true);
       expect(result.constructor).toEqual('Object');
       expect(result.constructor).not.toEqual('CoolThing');
@@ -60,7 +94,10 @@ describe('invokeHandlerForTesting', () => {
       const theHandler = jest.fn(async () => {
         return { now: new Date() }; // a Date instance can not be sent directly over the wire, the lambda will serialize it
       });
-      const result = await invokeHandlerForTesting({ event: {}, handler: theHandler }); // this should not throw an error about the instance
+      const result = await invokeHandlerForTesting({
+        event: {},
+        handler: theHandler,
+      }); // this should not throw an error about the instance
       expect(typeof result.now).toEqual('string');
     });
   });

@@ -1,7 +1,12 @@
 import { SQSEvent } from 'aws-lambda';
+
 import { EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED } from './eventMetadataWhichShouldNotBeNeeded';
 
-export const createExampleSQSEvent = ({ messages }: { messages: string[] }): SQSEvent => ({
+export const createExampleSQSEvent = ({
+  messages,
+}: {
+  messages: string[];
+}): SQSEvent => ({
   Records: messages.map((message) => {
     return {
       messageId: EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED,

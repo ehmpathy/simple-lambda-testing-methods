@@ -12,7 +12,8 @@ const stripInvocationEvent = (event: any) => JSON.parse(JSON.stringify(event));
  *
  * (e.g., remove any "Class" or non stringifiable data on the event. Only things representable as JSON are sent over the wire, so replicate that)
  */
-const stripInvocationOutput = (output: any) => (output === undefined ? undefined : JSON.parse(JSON.stringify(output)));
+const stripInvocationOutput = (output: any) =>
+  output === undefined ? undefined : JSON.parse(JSON.stringify(output));
 
 /**
  * to make it easy to invoke your handlers, swapping callback syntax to promise syntax as needed
@@ -35,5 +36,6 @@ export const invokeHandlerForTesting = async <E, R = any>({
         return resolve(stripInvocationOutput(result)!); // resolve result from callback
       },
     );
-    if (response instanceof Promise) resolve(response.then(stripInvocationOutput)); // if it was an async function and returned something, resolve that; otherwise, the callback will get triggered
+    if (response instanceof Promise)
+      resolve(response.then(stripInvocationOutput)); // if it was an async function and returned something, resolve that; otherwise, the callback will get triggered
   });

@@ -14,6 +14,17 @@ export const invokeLambdaForTesting = ({
   locally?: boolean;
   event: any;
 }) => {
-  if (locally) return invokeLambdaForTestingLocally({ service: serviceName, function: functionName, stage, event });
-  return invokeLambdaForTestingLive({ service: serviceName, stage, function: functionName, event });
+  if (locally)
+    return invokeLambdaForTestingLocally({
+      service: serviceName,
+      function: functionName,
+      stage,
+      event,
+    });
+  return invokeLambdaForTestingLive({
+    service: serviceName,
+    stage,
+    function: functionName,
+    event,
+  });
 };

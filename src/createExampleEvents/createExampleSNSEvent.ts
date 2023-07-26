@@ -1,7 +1,12 @@
 import { SNSEvent } from 'aws-lambda';
+
 import { EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED } from './eventMetadataWhichShouldNotBeNeeded';
 
-export const createExampleSNSEvent = ({ messages }: { messages: string[] }): SNSEvent => {
+export const createExampleSNSEvent = ({
+  messages,
+}: {
+  messages: string[];
+}): SNSEvent => {
   return {
     Records: messages.map((message) => {
       return {

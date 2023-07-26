@@ -46,7 +46,9 @@ describe('invokeLambdaForTestingLocally', () => {
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(LambdaInvocationError);
-      expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error!"`);
+      expect(error.message).toContain(
+        `'svc-example-prod-doCoolThing': "example error!"`,
+      );
     }
   });
   it('should throw a LambdaInvocationError if the function returned something that had an error shape, to match result of live invocation', async () => {
@@ -62,7 +64,9 @@ describe('invokeLambdaForTestingLocally', () => {
     } catch (error) {
       if (!(error instanceof Error)) throw error;
       expect(error).toBeInstanceOf(LambdaInvocationError);
-      expect(error.message).toContain(`'svc-example-prod-doCoolThing': "example error shape!"`);
+      expect(error.message).toContain(
+        `'svc-example-prod-doCoolThing': "example error shape!"`,
+      );
     }
   });
 });

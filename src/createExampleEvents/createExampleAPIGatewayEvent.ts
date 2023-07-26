@@ -1,4 +1,5 @@
 import { APIGatewayEvent } from 'aws-lambda';
+
 import { EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED } from './eventMetadataWhichShouldNotBeNeeded';
 
 export const createExampleAPIGatewayEvent = ({
@@ -30,11 +31,18 @@ export const createExampleAPIGatewayEvent = ({
     pathParameters,
     queryStringParameters,
     multiValueQueryStringParameters: queryStringParameters
-      ? Object.fromEntries(Object.entries(queryStringParameters).map(([key, value]) => [key, [value]]))
+      ? Object.fromEntries(
+          Object.entries(queryStringParameters).map(([key, value]) => [
+            key,
+            [value],
+          ]),
+        )
       : null,
     body,
     headers,
-    multiValueHeaders: Object.fromEntries(Object.entries(headers).map(([key, value]) => [key, [value]])),
+    multiValueHeaders: Object.fromEntries(
+      Object.entries(headers).map(([key, value]) => [key, [value]]),
+    ),
     httpMethod,
     isBase64Encoded,
     stageVariables: EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED,

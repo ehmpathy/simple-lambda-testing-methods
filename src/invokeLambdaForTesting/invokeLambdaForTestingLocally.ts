@@ -20,11 +20,15 @@ export const invokeLambdaForTestingLocally = async ({
   event: any;
 }) => {
   const workingDirectory = process.env.PWD; // grab the directory of the project the user is in
-  if (!workingDirectory) throw new Error('could not detect working directory w/ process.env.PWD'); // fail fast if this assumption is not satisfied
+  if (!workingDirectory)
+    throw new Error('could not detect working directory w/ process.env.PWD'); // fail fast if this assumption is not satisfied
   const projectRoot = findRoot(workingDirectory);
 
   // find the serverless.yml
-  const serverlessConfigYml = fs.readFileSync(`${projectRoot}/serverless.yml`, 'utf8');
+  const serverlessConfigYml = fs.readFileSync(
+    `${projectRoot}/serverless.yml`,
+    'utf8',
+  );
 
   // read the serverless.yml
   const serverlessConfig = YAML.parse(serverlessConfigYml);
@@ -58,14 +62,18 @@ export const invokeLambdaForTestingLocally = async ({
       return await import(handlerPath);
     } catch (error) {
       if (!(error instanceof Error)) throw error;
-      if (error.message.includes('Cannot find module')) throw new Error(`no file was found at handler.path \`${handlerPath}\``); // if we can add context to the error, throw our own error with more context
+      if (error.message.includes('Cannot find module'))
+        throw new Error(`no file was found at handler.path \`${handlerPath}\``); // if we can add context to the error, throw our own error with more context
       throw error; // otherwise, we cant add more context - just throw the orig error
     }
   })();
 
   // grab the handler method from the handler file
   const handlerMethod = handlerFile[handlerExport];
-  if (!handlerMethod) throw new Error(`no function was exported from file at handler.path \`${handlerPath}\``);
+  if (!handlerMethod)
+    throw new Error(
+      `no function was exported from file at handler.path \`${handlerPath}\``,
+    );
 
   // invoke the function. make the response look like what aws-lambda would return for the response (e.g., error => error shape response)
   const payload: any = await (async () => {
@@ -87,7 +95,12 @@ export const invokeLambdaForTestingLocally = async ({
       payload.errorMessage ||
       payload.errorType ||
       payload.stackTrace);
-  if (isAnErrorPayload) throw new LambdaInvocationError({ response: payload, lambda: `${serviceName}-${stage}-${functionName}`, event });
+  if (isAnErrorPayload)
+    throw new LambdaInvocationError({
+      response: payload,
+      lambda: `${serviceName}-${stage}-${functionName}`,
+      event,
+    });
 
   // otherwise, return the result
   return payload;

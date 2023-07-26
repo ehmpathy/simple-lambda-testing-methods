@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`createExampleSNSEvent should create an accurate looking sns event 1`] = `
-Object {
-  "Records": Array [
-    Object {
+{
+  "Records": [
+    {
       "EventSource": undefined,
       "EventSubscriptionArn": undefined,
       "EventVersion": undefined,
-      "Sns": Object {
+      "Sns": {
         "Message": "hello",
         "MessageAttributes": undefined,
         "MessageId": undefined,
@@ -21,11 +21,11 @@ Object {
         "UnsubscribeUrl": undefined,
       },
     },
-    Object {
+    {
       "EventSource": undefined,
       "EventSubscriptionArn": undefined,
       "EventVersion": undefined,
-      "Sns": Object {
+      "Sns": {
         "Message": "there",
         "MessageAttributes": undefined,
         "MessageId": undefined,

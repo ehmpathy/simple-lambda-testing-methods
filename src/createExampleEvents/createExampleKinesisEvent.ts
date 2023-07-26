@@ -1,4 +1,5 @@
 import { KinesisStreamEvent } from 'aws-lambda';
+
 import { EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED } from './eventMetadataWhichShouldNotBeNeeded';
 
 /**
@@ -6,7 +7,11 @@ import { EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED } from './eventMetadataWhichS
  * - matches the shape of the kinesis event that aws would have triggered your lambda with
  * - automatically base64 encodes your message just like kinesis will do
  */
-export const createExampleKinesisEvent = ({ messages }: { messages: string[] }): KinesisStreamEvent => ({
+export const createExampleKinesisEvent = ({
+  messages,
+}: {
+  messages: string[];
+}): KinesisStreamEvent => ({
   Records: messages.map((message) => {
     return {
       awsRegion: EVENT_METADATA_WHICH_SHOULD_NOT_BE_NEEDED,
