@@ -14,7 +14,7 @@ export const createExampleAPIGatewayEvent = ({
   queryStringParameters = null,
 }: {
   body: string;
-  httpMethod: 'POST' | 'GET';
+  httpMethod: 'POST' | 'GET' | 'OPTIONS';
   /**
    * aws will tell us whether they think the body is a base64 encoded binary or not, based on the headers
    *
