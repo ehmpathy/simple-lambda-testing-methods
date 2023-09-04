@@ -2,7 +2,7 @@
   "name": "simple-lambda-testing-methods",
   "author": "ehmpathy",
   "description": "a simple library made to make it easy to test lambdas and handlers, deployed and locally",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "repository": "ehmpathy/simple-lambda-testing-methods",
   "homepage": "https://github.com/ehmpathy/simple-lambda-testing-methods",
   "keywords": [
