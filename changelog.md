@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.2](https://github.com/ehmpathy/simple-lambda-testing-methods/compare/v0.5.1...v0.5.2) (2023-09-04)
+
+
+### Bug Fixes
+
+* **types:** support null body and options method on example api gateway event ([4a726b1](https://github.com/ehmpathy/simple-lambda-testing-methods/commit/4a726b1d422e4c57d834eaa7f0601eb051474c5e))
+
 ## [0.5.1](https://github.com/ehmpathy/simple-lambda-testing-methods/compare/v0.5.0...v0.5.1) (2023-07-26)
 
 
